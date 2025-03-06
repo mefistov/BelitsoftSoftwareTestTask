@@ -1,0 +1,5 @@
+/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask/obj/Debug/net9.0/BelitsoftSoftwareTestTask.csproj.AssemblyReference.cache
+/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask/obj/Debug/net9.0/BelitsoftSoftwareTestTask.GeneratedMSBuildEditorConfig.editorconfig
+/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask/obj/Debug/net9.0/BelitsoftSoftwareTestTask.AssemblyInfoInputs.cache
+/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask/obj/Debug/net9.0/BelitsoftSoftwareTestTask.AssemblyInfo.cs
+/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask/obj/Debug/net9.0/BelitsoftSoftwareTestTask.csproj.CoreCompileInputs.cache
