@@ -1,6 +1,6 @@
 namespace BelitsoftSoftwareTestTask.Models
 {
-    public class Destination
+    public class Cruise
     {
         public int DestinationId { get; set; }
         public int LocationId { get; set; }
