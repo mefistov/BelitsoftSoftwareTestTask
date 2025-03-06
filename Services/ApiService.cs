@@ -5,11 +5,11 @@ namespace BelitsoftSoftwareTestTask.Services
 {
     public class ApiService
     {
-        private readonly RestClient _client;
+        private readonly RestClient client;
 
         public ApiService()
         {
-            _client = new RestClient("https://tripadvisor16.p.rapidapi.com");
+           var client = new RestClient("https://tripadvisor16.p.rapidapi.com");
         }
 
         public async Task<RestResponse> GetSomeDataAsync()
@@ -18,7 +18,7 @@ namespace BelitsoftSoftwareTestTask.Services
             request.AddHeader("X-RapidAPI-Key", "YOUR_RAPIDAPI_KEY");
             request.AddHeader("X-RapidAPI-Host", "tripadvisor16.p.rapidapi.com");
 
-            return await _client.ExecuteAsync(request);
+            return await client.ExecuteAsync(request);
         }
     }
 }
