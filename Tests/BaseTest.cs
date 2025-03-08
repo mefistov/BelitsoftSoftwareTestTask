@@ -72,7 +72,6 @@ namespace BelitsoftSoftwareTestTask.Tests
 
             var sortedShips = ExtractSortedShips(dynamicData);
 
-            // Iterate over the collected list of ships
             foreach (var ship in sortedShips)
             {
 
