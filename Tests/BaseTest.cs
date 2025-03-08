@@ -51,26 +51,25 @@ namespace BelitsoftSoftwareTestTask.Tests
         {
             if (apiService != null)
             {
-            selectedDestinationID.Should().NotBe(0);
-            var queryParams = new Dictionary<string, string>
-            {
-                { "destinationId", selectedDestinationID.ToString() },
-                { "order", "popularity" },
-                { "page", "1" },
-                { "currencyCode", "USD" }
-            };
-            var response = await apiService.getListList(queryParams);
-            response.Should().NotBeNull();
-            TestContext.WriteLine($"API Response - Status: {response.Status}");
+                selectedDestinationID.Should().NotBe(0);
+                var queryParams = new Dictionary<string, string>
+                {
+                    { "destinationId", selectedDestinationID.ToString() },
+                    { "order", "popularity" },
+                    { "page", "1" },
+                    { "currencyCode", "USD" }
+                };
+                var response = await apiService.getListList(queryParams);
+                response.Should().NotBeNull();
+                TestContext.WriteLine($"API Response - Status: {response.Status}");
 
-         //response.Data.OrderBy(ship => ship.Name).ToList();
-         var sortedShips = response.Data.Where(List => List.Ship != null).SelectMany(List => List.Ship).OrderByDescending(ship => ship.Crew).ToList();
-         sortedShips.Should().NotBeNull();
-         TestContext.WriteLine($"Ships count: {sortedShips.Count}");
-            foreach (var ship in sortedShips)
-            {
-            TestContext.WriteLine($"Ship: {ship.Name} - Crew: {ship.Crew}");
-            }
+                var sortedShips = response.Data.Where(List => List.Ship != null).SelectMany(List => List.Ship).OrderByDescending(ship => ship.Crew).ToList();
+                sortedShips.Should().NotBeNull();
+                TestContext.WriteLine($"Ships count: {sortedShips.Count}");
+                foreach (var ship in sortedShips)
+                {
+                    TestContext.WriteLine($"Ship: {ship.Name} - Crew: {ship.Crew}");
+                    }
             }
         }
     }
