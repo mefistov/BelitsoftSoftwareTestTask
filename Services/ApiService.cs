@@ -1,5 +1,6 @@
 using RestSharp;
 using System.Text.Json;
+using System.Net;
 using BelitsoftSoftwareTestTask.Models;
 using BelitsoftSoftwareTestTask.Config;
 using NUnit.Framework;
@@ -118,7 +119,6 @@ namespace BelitsoftSoftwareTestTask.Services
                 var response = await getCruisesLocation();
                 var statusCode = (HttpStatusCode)response.StatusCode;
                 var content = response.Content;
-                Console.WriteLine(content);
 
                 if (statusCode == HttpStatusCode.OK && !string.IsNullOrEmpty(content))
                 {
@@ -179,7 +179,6 @@ namespace BelitsoftSoftwareTestTask.Services
                 var response = await getCruisesLocation();
                 var statusCode = (HttpStatusCode)response.StatusCode;
                 var content = response.Content;
-                Console.WriteLine(content);
 
                 if (statusCode == HttpStatusCode.OK && !string.IsNullOrEmpty(content))
                 {
