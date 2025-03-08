@@ -43,6 +43,7 @@ namespace BelitsoftSoftwareTestTask.Tests
 
                 filteredCruise = response.Data.Where(cruise => cruise.Name.Equals(Destination.caribean)).ToList();
                 selectedDestinationID = filteredCruise.First().DestinationId;
+                TestContext.WriteLine($"Selected cruise with caribean destination: {selectedDestinationID}");
             }
         }
 
@@ -97,7 +98,6 @@ namespace BelitsoftSoftwareTestTask.Tests
             if (!((IDictionary<string, object>)dynamicData).ContainsKey("list"))
                 return shipList;
             
-            // Retrieve cruise items from the "list" property.
             var cruiseList = dynamicData.list as IEnumerable<dynamic>;
             if (cruiseList != null)
             {
