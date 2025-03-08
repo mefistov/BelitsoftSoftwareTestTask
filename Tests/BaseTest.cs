@@ -3,7 +3,6 @@ using FluentAssertions;
 using BelitsoftSoftwareTestTask.Services;
 using NUnit.Framework.Internal;
 using BelitsoftSoftwareTestTask.Models;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BelitsoftSoftwareTestTask.Tests
 {
@@ -65,10 +64,12 @@ namespace BelitsoftSoftwareTestTask.Tests
             TestContext.WriteLine($"API Response - Status: {response.Status}");
 
          //response.Data.OrderBy(ship => ship.Name).ToList();
-         var sortedShips = response.Data.Where(List => List.Ship != null).SelectMany(List => List.Ship).OrderByDescending(ship => ship.crew).ToList();
+         var sortedShips = response.Data.Where(List => List.Ship != null).SelectMany(List => List.Ship).OrderByDescending(ship => ship.Crew).ToList();
+         sortedShips.Should().NotBeNull();
+         TestContext.WriteLine($"Ships count: {sortedShips.Count}");
             foreach (var ship in sortedShips)
             {
-            TestContext.WriteLine($"Ship: {ship.name} - Crew: {ship.crew}");
+            TestContext.WriteLine($"Ship: {ship.Name} - Crew: {ship.Crew}");
             }
             }
         }

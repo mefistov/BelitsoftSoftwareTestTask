@@ -38,3 +38,17 @@ This repository contains a .NET project for interacting with the TripAdvisor API
     ```
 
     This will execute all the tests in the `BelitsoftSoftwareTestTask.Tests` project.
+
+## Task 
+Create a backend automation framework in C# for the following API endpoint https://rapidapi.com/DataCrawler/api/tripadvisor16/
+
+Create a unit test that will print out cruises with destination “Caribbean” and sort them by number of crew
+
+Query ‘Get Cruises Location’ endpoint to get destinationId for Caribbean
+Use the destinationId in ‘Search Cruises’ endpoint call to print out all ship names and sort the records in descending order by number of crew
+
+Please add a README which contains information on how to set up the framework and run the test/s 
+Follow SOLID and DRY principles 
+Bonus points  
+Create CI/CD pipeline (e.g. Github actions)
+

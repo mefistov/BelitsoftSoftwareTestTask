@@ -9,33 +9,33 @@ namespace BelitsoftSoftwareTestTask.Services
 {
     public class ApiService
     {
-        private readonly string _apiKey;
-        private readonly string _apiHost;
-        private readonly string _baseUrl;
+        private readonly string apiKey;
+        private readonly string apiHost;
+        private readonly string baseUrl;
 
         public ApiService()
         {
-            _apiKey = ApiConfig.ApiKey;
-            _apiHost = ApiConfig.ApiHost;
-            _baseUrl = ApiConfig.BaseUrl;
+            apiKey = ApiConfig.ApiKey;
+            apiHost = ApiConfig.ApiHost;
+            baseUrl = ApiConfig.BaseUrl;
         }
 
-        private RestClient CreateClient()
+        private RestClient createClient()
         {
-            return new RestClient(_baseUrl);
+            return new RestClient(baseUrl);
         }
 
         private RestRequest createGetRequest(string endpoint, Method method)
         {
             var request = new RestRequest(endpoint, method);
-            request.AddHeader("x-rapidapi-key", _apiKey);
-            request.AddHeader("x-rapidapi-host", _apiHost);
+            request.AddHeader("x-rapidapi-key", apiKey);
+            request.AddHeader("x-rapidapi-host", apiHost);
             return request;
         }
 
         private async Task<RestResponse> getCruisesLocation()
         {
-            var client = CreateClient();
+            var client = createClient();
             var request = createGetRequest(Endpoints.GetCruisesLocation, Method.Get);
             TestContext.WriteLine($"Requesting URL: {client.BuildUri(request)}");
             return await client.ExecuteAsync(request);
@@ -43,14 +43,14 @@ namespace BelitsoftSoftwareTestTask.Services
 
         private async Task<RestResponse> getSearchCruises(Dictionary<string, string> queryParams)
         {
-            var client = CreateClient();
+            var client = createClient();
             var urlWithParams = getSearchCruisesUrlWithParams(queryParams);
             var request = createGetRequest(urlWithParams, Method.Get);
             TestContext.WriteLine($"Requesting URL: {client.BuildUri(request)}");
             return await client.ExecuteAsync(request);
         }
 
-         public async Task<getLocationResponce<List<Ships<Ship>>>> getListList(Dictionary<string, string> queryParams)
+         public async Task<GetLocationResponce<List<Ships<Ship>>>> getListList(Dictionary<string, string> queryParams)
         {
             try
             {   
@@ -99,20 +99,19 @@ namespace BelitsoftSoftwareTestTask.Services
                                 continue;
                             }
                         }
-                        return new getLocationResponce<List<Ships<Ship>>>(true, ((int)statusCode).ToString(), ships, null);
+                        return new GetLocationResponce<List<Ships<Ship>>>(true, ((int)statusCode).ToString(), ships, null);
                     }
-                    return new getLocationResponce<List<Ships<Ship>>>(false, ((int)statusCode).ToString(), new List<Ships<Ship>>(), "Data property not found in response");
+                    return new GetLocationResponce<List<Ships<Ship>>>(false, ((int)statusCode).ToString(), new List<Ships<Ship>>(), "Data property not found in response");
                 }
-                return new getLocationResponce<List<Ships<Ship>>>(false, ((int)statusCode).ToString(), new List<Ships<Ship>>(), "");
+                return new GetLocationResponce<List<Ships<Ship>>>(false, ((int)statusCode).ToString(), new List<Ships<Ship>>(), "");
             }
             catch (Exception ex)
             {
-                return new getLocationResponce<List<Ships<Ship>>>(false, "500", new List<Ships<Ship>>(), ex.Message);
+                return new GetLocationResponce<List<Ships<Ship>>>(false, "500", new List<Ships<Ship>>(), ex.Message);
             }
         }
 
-
-        public async Task<getLocationResponce<List<Cruise>>> getCruisesLocationList()
+        public async Task<GetLocationResponce<List<Cruise>>> getCruisesLocationList()
         {
             try
             {
@@ -147,21 +146,21 @@ namespace BelitsoftSoftwareTestTask.Services
                                 continue;
                             }
                         }
-                        return new getLocationResponce<List<Cruise>>(true, ((int)statusCode).ToString(), cruises, null);
+                        return new GetLocationResponce<List<Cruise>>(true, ((int)statusCode).ToString(), cruises, null);
                     }
-                    return new getLocationResponce<List<Cruise>>(false, ((int)statusCode).ToString(), null, "Data property not found in response");
+                    return new GetLocationResponce<List<Cruise>>(false, ((int)statusCode).ToString(), null, "Data property not found in response");
                 }
-                return new getLocationResponce<List<Cruise>>(false, ((int)statusCode).ToString(), null, response.ErrorMessage);
+                return new GetLocationResponce<List<Cruise>>(false, ((int)statusCode).ToString(), null, response.ErrorMessage);
             }
             catch (Exception ex)
             {
-                return new getLocationResponce<List<Cruise>>(false, "500", null, ex.Message);
+                return new GetLocationResponce<List<Cruise>>(false, "500", null, ex.Message);
             }
         } 
 
         public string getSearchCruisesUrlWithParams(Dictionary<string, string> queryParams)
         {
-            var client = CreateClient();
+            var client = createClient();
             var request = new RestRequest(Endpoints.SearchCruises, Method.Get);
 
             foreach (var param in queryParams)
@@ -173,7 +172,7 @@ namespace BelitsoftSoftwareTestTask.Services
             return url;
         }
 
-        public async Task<getLocationResponce<List<Cruise>>> getSearchCruisesList()
+        public async Task<GetLocationResponce<List<Cruise>>> getSearchCruisesList()
         {
             try
             {
@@ -187,25 +186,14 @@ namespace BelitsoftSoftwareTestTask.Services
                     var cruises = new List<Cruise>();
                     var jsonDocument = JsonDocument.Parse(content);
                     var root = jsonDocument.RootElement;
-                    return new getLocationResponce<List<Cruise>>(true, ((int)statusCode).ToString(), cruises, null);
+                    return new GetLocationResponce<List<Cruise>>(true, ((int)statusCode).ToString(), cruises, null);
                 }
-                return new getLocationResponce<List<Cruise>>(false, ((int)statusCode).ToString(), null, "Invalid response");
+                return new GetLocationResponce<List<Cruise>>(false, ((int)statusCode).ToString(), null, "Invalid response");
             }
             catch (Exception ex)
             {
-                return new getLocationResponce<List<Cruise>>(false, "500", null, ex.Message);
+                return new GetLocationResponce<List<Cruise>>(false, "500", null, ex.Message);
             }
         } 
-
-
-
-
-
-
-
-
-
-
-
     }
 }
