@@ -1,4 +1,4 @@
-name: Daily Test Run
+name: Smoke test
 
 on:
   schedule:
@@ -10,6 +10,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Fetch latest changes
+      run: |
+        git fetch origin
+        git checkout main
+        git pull origin main
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
