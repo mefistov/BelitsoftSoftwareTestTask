@@ -52,8 +52,6 @@ namespace BelitsoftSoftwareTestTask.Services
             return await client.ExecuteAsync(request);
         }
 
-    
-        // Recursive dynamic parser using ExpandoObject for objects and List<dynamic> for arrays.
         private dynamic ParseJsonElementToDynamic(JsonElement element)
         {
             switch (element.ValueKind)

@@ -49,45 +49,37 @@ namespace BelitsoftSoftwareTestTask.Tests
 
         [Test, Order(2)]
         public async Task getGETSearchCruises()
-{
-    if (apiService != null)
-    {
-        selectedDestinationID.Should().NotBe(0);
-
-        var queryParams = new Dictionary<string, string>
         {
-            { "destinationId", selectedDestinationID.ToString() },
-            { "order", "popularity" },
-            { "page", "1" },
-            { "currencyCode", "USD" }
-        };
-
-        var response = await apiService.getShipList(queryParams);
-        response.Should().NotBeNull();
-        TestContext.WriteLine($"API Response - Status: {response.Status}");
-
-        if (response.IsSuccessful && response.Data != null)
-        {
-            dynamic dynamicData = response.Data;
-
-            var sortedShips = ExtractSortedShips(dynamicData);
-
-            foreach (var ship in sortedShips)
+            if (apiService != null)
             {
-
-                var id = ship.id;
-                var shipName = ship.name;
-                var crew = ship.crew;
-
-                TestContext.WriteLine($"Ship: {shipName} (ID: {id}) - Crew: {crew}");
+                selectedDestinationID.Should().NotBe(0);
+                var queryParams = new Dictionary<string, string>
+                {
+                    { "destinationId", selectedDestinationID.ToString() },
+                    };
+                    var response = await apiService.getShipList(queryParams);
+                    response.Should().NotBeNull();
+                    TestContext.WriteLine($"API Response - Status: {response.Status}");
+                    
+                    if (response.IsSuccessful && response.Data != null)
+                    {
+                        dynamic dynamicData = response.Data;
+                        var sortedShips = ExtractSortedShips(dynamicData);
+                        
+                        foreach (var ship in sortedShips)
+                        {
+                            var id = ship.id;
+                            var shipName = ship.name;
+                            var crew = ship.crew;
+                            TestContext.WriteLine($"Ship: {shipName} (ID: {id}) - Crew: {crew}");
+                            }
+                    }
+                    else
+                    {
+                        TestContext.WriteLine($"API request failed. Error: {response.ErrorMessage}");
+                        response.Status.Should().NotBe("500", "API should not return a 500 error");
+                        }
             }
-        }
-        else
-        {
-            TestContext.WriteLine($"API request failed. Error: {response.ErrorMessage}");
-            response.Status.Should().NotBe("500", "API should not return a 500 error");
-        }
-    }
 }
 
         private List<dynamic> ExtractSortedShips(dynamic dynamicData)
