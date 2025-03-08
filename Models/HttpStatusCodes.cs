@@ -1,6 +1,6 @@
 namespace BelitsoftSoftwareTestTask.Models
 {
-    public enum HttpStatusCodeEnum
+    public enum HttpStatusCode
     {
         // 1xx Informational
         Continue = 100,

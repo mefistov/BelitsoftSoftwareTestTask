@@ -1,0 +1,15 @@
+namespace BelitsoftSoftwareTestTask.Models
+{
+    public class getSearchCruisesResponce<Ships>
+    {
+        public int TotalPages { get; set; };
+        public int TotalResults { get; set; };
+        public List<Ships> List { get; set; };
+    }
+    public getSearchCruisesResponce(int totalPages, int totalResults, Ships ships)
+        {
+            TotalPages = totalPages;
+            TotalResults = totalResults;
+            list = ships;
+        }
+}
