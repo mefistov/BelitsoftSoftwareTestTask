@@ -4,13 +4,19 @@ namespace BelitsoftSoftwareTestTask.Models
     {
         public int TotalPages { get; set; }
         public int TotalResults { get; set; }
-        public List<T> List { get; set; }
-    
-    public GetSearchCruisesResponce(int totalPages, int totalResults, List<T> ships)
+        public T List { get; set; }
+        public string Price { get; set; }
+        public T Filters { get; set; }
+        public string Status { get; set; }
+
+        public GetSearchCruisesResponce(int totalPages, int totalResults, T list, string price, T filters)
         {
             TotalPages = totalPages;
             TotalResults = totalResults;
-            List = ships;
+            List = list;
+            Price = price;
+            Filters = filters;
+            Status = string.Empty;
         }
     }
 }

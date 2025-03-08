@@ -21,7 +21,7 @@ namespace BelitsoftSoftwareTestTask.Tests
             apiService = new ApiService();
         }
 
-        [Test, Order(1)]
+    [Test, Order(1)]
         public async Task getCruisesLocation()
         {
             if (apiService != null)
@@ -48,29 +48,71 @@ namespace BelitsoftSoftwareTestTask.Tests
 
         [Test, Order(2)]
         public async Task getGETSearchCruises()
-        {
-            if (apiService != null)
-            {
-                selectedDestinationID.Should().NotBe(0);
-                var queryParams = new Dictionary<string, string>
-                {
-                    { "destinationId", selectedDestinationID.ToString() },
-                    { "order", "popularity" },
-                    { "page", "1" },
-                    { "currencyCode", "USD" }
-                };
-                var response = await apiService.getListList(queryParams);
-                response.Should().NotBeNull();
-                TestContext.WriteLine($"API Response - Status: {response.Status}");
+{
+    if (apiService != null)
+    {
+        selectedDestinationID.Should().NotBe(0);
 
-                var sortedShips = response.Data.Where(List => List.Ship != null).SelectMany(List => List.Ship).OrderByDescending(ship => ship.Crew).ToList();
-                sortedShips.Should().NotBeNull();
-                TestContext.WriteLine($"Ships count: {sortedShips.Count}");
-                foreach (var ship in sortedShips)
-                {
-                    TestContext.WriteLine($"Ship: {ship.Name} - Crew: {ship.Crew}");
-                    }
+        var queryParams = new Dictionary<string, string>
+        {
+            { "destinationId", selectedDestinationID.ToString() },
+            { "order", "popularity" },
+            { "page", "1" },
+            { "currencyCode", "USD" }
+        };
+
+        var response = await apiService.getShipList(queryParams);
+        response.Should().NotBeNull();
+        TestContext.WriteLine($"API Response - Status: {response.Status}");
+
+        if (response.IsSuccessful && response.Data != null)
+        {
+            dynamic dynamicData = response.Data;
+
+            var sortedShips = ExtractSortedShips(dynamicData);
+
+            // Iterate over the collected list of ships
+            foreach (var ship in sortedShips)
+            {
+
+                var id = ship.id;
+                var shipName = ship.name;
+                var crew = ship.crew;
+
+                TestContext.WriteLine($"Ship: {shipName} (ID: {id}) - Crew: {crew}");
             }
         }
+        else
+        {
+            TestContext.WriteLine($"API request failed. Error: {response.ErrorMessage}");
+            response.Status.Should().NotBe("500", "API should not return a 500 error");
+        }
     }
+}
+
+        private List<dynamic> ExtractSortedShips(dynamic dynamicData)
+        {
+            var shipList = new List<dynamic>();
+            
+            if (!((IDictionary<string, object>)dynamicData).ContainsKey("list"))
+                return shipList;
+            
+            // Retrieve cruise items from the "list" property.
+            var cruiseList = dynamicData.list as IEnumerable<dynamic>;
+            if (cruiseList != null)
+            {
+                foreach (var item in cruiseList)
+                {
+                    if (item is IDictionary<string, object> dict && dict.ContainsKey("ship") && item.ship != null)
+                    {
+                        shipList.Add(item.ship);
+                    }
+                }
+            }
+            
+            var sortedShips = shipList.OrderByDescending(ship => ship.crew != null ? (int)ship.crew : 0).ToList();
+            return sortedShips;
+        }
+    }
+        
 }

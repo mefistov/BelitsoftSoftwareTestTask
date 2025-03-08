@@ -5,6 +5,7 @@ using BelitsoftSoftwareTestTask.Models;
 using BelitsoftSoftwareTestTask.Config;
 using NUnit.Framework;
 using FluentAssertions.Equivalency.Steps;
+using System.Dynamic;
 
 namespace BelitsoftSoftwareTestTask.Services
 {
@@ -51,64 +52,67 @@ namespace BelitsoftSoftwareTestTask.Services
             return await client.ExecuteAsync(request);
         }
 
-         public async Task<GetLocationResponce<List<Ships<Ship>>>> getListList(Dictionary<string, string> queryParams)
+    
+        // Recursive dynamic parser using ExpandoObject for objects and List<dynamic> for arrays.
+        private dynamic ParseJsonElementToDynamic(JsonElement element)
+        {
+            switch (element.ValueKind)
+            {
+                case JsonValueKind.Object:
+                    IDictionary<string, object> expando = new ExpandoObject();
+                    foreach (var property in element.EnumerateObject())
+                    {
+                        expando[property.Name] = ParseJsonElementToDynamic(property.Value);
+                    }
+                    return expando;
+                case JsonValueKind.Array:
+                    var list = new List<dynamic>();
+                    foreach (var item in element.EnumerateArray())
+                    {
+                        list.Add(ParseJsonElementToDynamic(item));
+                    }
+                    return list;
+                case JsonValueKind.String:
+                    return element.GetString();
+                case JsonValueKind.Number:
+                    if (element.TryGetInt32(out int intVal))
+                        return intVal;
+                    return element.GetDouble();
+                case JsonValueKind.True:
+                case JsonValueKind.False:
+                    return element.GetBoolean();
+                default:
+                    return null;
+            }
+        }
+
+        public async Task<GetLocationResponce<dynamic>> getShipList(Dictionary<string, string> queryParams)
         {
             try
-            {   
+            {
                 var response = await getSearchCruises(queryParams);
                 var statusCode = (HttpStatusCode)response.StatusCode;
                 var content = response.Content;
-                Console.WriteLine(content);
-
+                
                 if (statusCode == HttpStatusCode.OK && !string.IsNullOrEmpty(content))
                 {
-                    var ships = new List<Ships<Ship>>();
                     var jsonDocument = JsonDocument.Parse(content);
                     var root = jsonDocument.RootElement;
 
                     if (root.TryGetProperty("data", out JsonElement dataElement))
                     {
-                        foreach (var element in dataElement.EnumerateArray())
-                        {
-                            try
-                            {
-                                var shipId = element.TryGetProperty("shipId", out var shipIdElement) ? shipIdElement.GetString() : string.Empty;
-                                var seoName = element.TryGetProperty("seoName", out var seoNameElement) ? seoNameElement.GetString() : string.Empty;
-                                var length = element.TryGetProperty("length", out var lengthElement) ? lengthElement.GetInt32() : 0;
-                                var id = element.TryGetProperty("id", out var idElement) ? idElement.GetInt32() : 0;
-                                var ship = new Ships<Ship>(shipId, seoName, string.Empty, length, id, new List<Ship>())
-                                {
-                                    Ship = new List<Ship>()
-                                };
-
-                                if (element.TryGetProperty("ship", out JsonElement shipElement))
-                                {
-                                    foreach (var shipElementItem in shipElement.EnumerateArray())
-                                    {
-                                        var innerShipId = shipElementItem.TryGetProperty("shipId", out var shipIdValue) ? shipIdValue.GetString() ?? string.Empty : string.Empty;
-                                        var name = shipElementItem.TryGetProperty("name", out var nameValue) ? nameValue.GetString() ?? string.Empty : string.Empty;
-                                        var crew = shipElementItem.TryGetProperty("crew", out var crewValue) ? crewValue.GetInt32() : 0;
-                                        var shipItem = new Ship(innerShipId, name, crew);
-                                        ship.Ship.Add(shipItem);
-                                    }
-                                }
-                                ships.Add(ship);
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine($"Error parsing ship element: {ex.Message}");
-                                continue;
-                            }
-                        }
-                        return new GetLocationResponce<List<Ships<Ship>>>(true, ((int)statusCode).ToString(), ships, null);
+                        dynamic dynamicData = ParseJsonElementToDynamic(dataElement);
+                        return new GetLocationResponce<dynamic>(true, ((int)statusCode).ToString(), dynamicData, null );
                     }
-                    return new GetLocationResponce<List<Ships<Ship>>>(false, ((int)statusCode).ToString(), new List<Ships<Ship>>(), "Data property not found in response");
+                    return new GetLocationResponce<dynamic>( false, ((int)statusCode).ToString(), null, "Data property not found in response"
+                    );
                 }
-                return new GetLocationResponce<List<Ships<Ship>>>(false, ((int)statusCode).ToString(), new List<Ships<Ship>>(), "");
+                return new GetLocationResponce<dynamic>( false, ((int)statusCode).ToString(), null, response.ErrorMessage ?? "Invalid response" );
             }
             catch (Exception ex)
             {
-                return new GetLocationResponce<List<Ships<Ship>>>(false, "500", new List<Ships<Ship>>(), ex.Message);
+                Console.WriteLine($"Error in getListList2: {ex.Message}");
+                return new GetLocationResponce<dynamic>( false, "500", null,  ex.Message );
             }
         }
 
