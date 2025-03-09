@@ -15,5 +15,4 @@ namespace BelitsoftSoftwareTestTask.Models
             ErrorMessage = errorMessage;
         }
     }
-    
 }
