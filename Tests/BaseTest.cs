@@ -10,7 +10,7 @@ namespace BelitsoftSoftwareTestTask.Tests
     public class BaseTest
     {
         private List<Cruise> filteredCruise = new List<Cruise>();
-        private int selectedDestinationID;
+        private int selectedDestinationID = 147237;
 
         
         private ApiService? apiService;
@@ -56,6 +56,9 @@ namespace BelitsoftSoftwareTestTask.Tests
                 var queryParams = new Dictionary<string, string>
                 {
                     { "destinationId", selectedDestinationID.ToString() },
+                    { "order", "popularity" },
+                    { "page", "1" },
+                    { "currencyCode", "USD" }
                     };
                     var response = await apiService.getShipList(queryParams);
                     response.Should().NotBeNull();
