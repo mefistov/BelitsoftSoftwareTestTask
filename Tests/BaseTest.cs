@@ -80,7 +80,7 @@ namespace BelitsoftSoftwareTestTask.Tests
                         response.Status.Should().NotBe("500", "API should not return a 500 error");
                         }
             }
-}
+        }
 
         private List<dynamic> ExtractSortedShips(dynamic dynamicData)
         {

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BelitsoftSoftwareTestTask")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7d12650b21fedcd37eac811c39c6305462a28545")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e26bc72ee6bb3782f335f72f1cd5517a88232392")]
 [assembly: System.Reflection.AssemblyProductAttribute("BelitsoftSoftwareTestTask")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BelitsoftSoftwareTestTask")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

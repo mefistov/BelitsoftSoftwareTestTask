@@ -1578,11 +1578,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/vladyslavseden/Project/testdir/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj",
+      "projectUniqueName": "/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj",
       "projectName": "BelitsoftSoftwareTestTask",
-      "projectPath": "/Users/vladyslavseden/Project/testdir/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj",
+      "projectPath": "/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj",
       "packagesPath": "/Users/vladyslavseden/.nuget/packages/",
-      "outputPath": "/Users/vladyslavseden/Project/testdir/BelitsoftSoftwareTestTask/obj/",
+      "outputPath": "/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/vladyslavseden/.nuget/NuGet/NuGet.Config"

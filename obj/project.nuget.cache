@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UbuMm6kc6q8=",
+  "dgSpecHash": "jDM6uYD+rXA=",
   "success": true,
-  "projectFilePath": "/Users/vladyslavseden/Project/testdir/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj",
+  "projectFilePath": "/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj",
   "expectedPackageFiles": [
     "/Users/vladyslavseden/.nuget/packages/fluentassertions/8.1.1/fluentassertions.8.1.1.nupkg.sha512",
     "/Users/vladyslavseden/.nuget/packages/microsoft.applicationinsights/2.22.0/microsoft.applicationinsights.2.22.0.nupkg.sha512",
