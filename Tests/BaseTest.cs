@@ -10,7 +10,7 @@ namespace BelitsoftSoftwareTestTask.Tests
     public class BaseTest
     {
         private List<Cruise> filteredCruise = new List<Cruise>();
-        private int selectedDestinationID = 147237;
+        private int selectedDestinationID;
 
         
         private ApiService? apiService;

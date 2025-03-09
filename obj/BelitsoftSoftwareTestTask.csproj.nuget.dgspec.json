@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/untitled folder/untitled folder/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj": {}
+    "/Users/vladyslavseden/Project/r4/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj": {}
   },
   "projects": {
-    "/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/untitled folder/untitled folder/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj": {
+    "/Users/vladyslavseden/Project/r4/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/untitled folder/untitled folder/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj",
+        "projectUniqueName": "/Users/vladyslavseden/Project/r4/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj",
         "projectName": "BelitsoftSoftwareTestTask",
-        "projectPath": "/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/untitled folder/untitled folder/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj",
+        "projectPath": "/Users/vladyslavseden/Project/r4/BelitsoftSoftwareTestTask/BelitsoftSoftwareTestTask.csproj",
         "packagesPath": "/Users/vladyslavseden/.nuget/packages/",
-        "outputPath": "/Users/vladyslavseden/Project/BelitsoftSoftwareTestTask/untitled folder/untitled folder/BelitsoftSoftwareTestTask/obj/",
+        "outputPath": "/Users/vladyslavseden/Project/r4/BelitsoftSoftwareTestTask/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/vladyslavseden/.nuget/NuGet/NuGet.Config"
